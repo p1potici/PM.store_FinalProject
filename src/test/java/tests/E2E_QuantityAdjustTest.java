@@ -29,43 +29,42 @@ class E2E_QuantityAdjustTest {
         loginPage.clickLogin_Button();
         System.out.println("Logged in successfully.");
 
-        // Step 2: Navigate to the product page using a dropdown menu
+        // Step 2: Navigate to the product
         WebElement dropdownMenu = driver.findElement(By.cssSelector("#main-menu > div > ul > li.all-product-button.menu-drop > a"));
         dropdownMenu.click();
         WebElement dropdownLink = driver.findElement(By.cssSelector("#main-menu > div > ul > li.all-product-button.menu-drop > div > ul > li:nth-child(8) > a > span"));
         dropdownLink.click();
         System.out.println("Accessed the product page via dropdown menu.");
 
-        // Step 3: Add a product to the basket
+        // Step 3: Add a product
         productPage.addToBasket();
         System.out.println("Added product to basket.");
 
-        // Step 4: Wait before navigating to the basket
         try {
-            Thread.sleep(3000); // Timer to simulate delay
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         productPage.openCart();
         System.out.println("Opened basket.");
 
-        // Step 5: Adjust the product quantity in the basket
-        // Add 1 to the quantity
+        // Step 5: Adjust the product quantity
         WebElement plusButton = driver.findElement(By.cssSelector("#updateCart > div.-g-checkout-summary > div.cart-box.col-sm.clearfix > ul.cart-items.clearfix.order > li > div.qty-h.col-sm-3.col-xs-6 > div.qty-regulator.clearfix.-g-product-qty-regulator-86 > a.number-up.plus.updateCart.-g-no-url"));
         plusButton.click();
         System.out.println("Increased quantity by 1.");
+
         try {
-            Thread.sleep(2000); // Timer between actions
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        // Subtract 1 from the quantity
         WebElement minusButton = driver.findElement(By.cssSelector("#updateCart > div.-g-checkout-summary > div.cart-box.col-sm.clearfix > ul.cart-items.clearfix.order > li > div.qty-h.col-sm-3.col-xs-6 > div.qty-regulator.clearfix.-g-product-qty-regulator-86 > a.minus.number-down.updateCart.-g-no-url > i"));
         minusButton.click();
         System.out.println("Reduced quantity by 1.");
+
         try {
-            Thread.sleep(2000); // Timer between actions
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
