@@ -2,66 +2,47 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import pages.ProductPage;
-import utils.webUtils;
+import org.junit.jupiter.api.Test;
 
-class E2E_MainTest {
-    private WebDriver driver;
+public class E2E_BasketTest extends BaseTest {
     private LoginPage loginPage;
     private ProductPage productPage;
 
     @BeforeEach
-    void setup() {
-        driver = webUtils.getWebDriver();
+    void testSetup() {
         loginPage = new LoginPage(driver);
         productPage = new ProductPage(driver);
     }
 
     @Test
     void endToEndFlowTest1() {
-
+        // Step 1: Log in
         loginPage.goTo();
-        System.out.println("Navigated to homepage.");
-
-        // Step 2: Login
         loginPage.clickLoginButton();
         loginPage.fillLoginForm("John.Doee@example.com", "Test123!");
         loginPage.clickLogin_Button();
-        System.out.println("Logged in successfully.");
 
-        // Step 3: Navigate
+        // Step 2: Navigate to product
         WebElement dropdownMenu = driver.findElement(By.cssSelector("#main-menu > div > ul > li.all-product-button.menu-drop > a"));
         dropdownMenu.click();
         WebElement dropdownLink = driver.findElement(By.cssSelector("#main-menu > div > ul > li.all-product-button.menu-drop > div > ul > li:nth-child(8) > a > span"));
         dropdownLink.click();
-        System.out.println("Accessed the product page via dropdown menu.");
 
-        // Step 4: Add product to basket
+        // Step 3: Add product
         productPage.addToBasket();
-        System.out.println("Product added to basket.");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        productPage.openCart();
-        System.out.println("Opened basket.");
 
-        // Step 6: Log off
+        // Step 4: Open basket
+        productPage.openCart();
+
+        // Step 5: Log off
         WebElement accountMenu = driver.findElement(By.cssSelector("#wrapper > header > div > div > div > div.col-sm-6.col-xs-12.cart-menu > ul > li.-g-user-icon.-g-user-loggedin-icon > a > span"));
         accountMenu.click();
         WebElement logoutButton = driver.findElement(By.cssSelector("#wrapper > div.account-h.container-h.container-bg > div > div.side-menu.col-lg-3.col-md-3.col-sm-12.col-xs-12 > div.row > ul:nth-child(5) > li > a"));
         logoutButton.click();
-        System.out.println("Logged off successfully.");
-    }
 
-    @AfterEach
-    void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        System.out.println("Test completed: End-to-end flow.");
     }
 }

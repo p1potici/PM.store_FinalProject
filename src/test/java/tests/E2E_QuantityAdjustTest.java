@@ -2,20 +2,17 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import pages.ProductPage;
-import utils.webUtils;
+import org.junit.jupiter.api.Test;
 
-class E2E_QuantityAdjustTest {
-    private WebDriver driver;
+class E2E_QuantityAdjustTest extends BaseTest {
     private LoginPage loginPage;
     private ProductPage productPage;
 
     @BeforeEach
-    void setup() {
-        driver = webUtils.getWebDriver();
+    void testSetup() {
         loginPage = new LoginPage(driver);
         productPage = new ProductPage(driver);
     }
@@ -40,19 +37,19 @@ class E2E_QuantityAdjustTest {
         productPage.addToBasket();
         System.out.println("Added product to basket.");
 
+        // Step 4: basket
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         productPage.openCart();
         System.out.println("Opened basket.");
 
-        // Step 5: Adjust the product quantity
+        // Step 5: Adjust the product
         WebElement plusButton = driver.findElement(By.cssSelector("#updateCart > div.-g-checkout-summary > div.cart-box.col-sm.clearfix > ul.cart-items.clearfix.order > li > div.qty-h.col-sm-3.col-xs-6 > div.qty-regulator.clearfix.-g-product-qty-regulator-86 > a.number-up.plus.updateCart.-g-no-url"));
         plusButton.click();
         System.out.println("Increased quantity by 1.");
-
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -62,7 +59,6 @@ class E2E_QuantityAdjustTest {
         WebElement minusButton = driver.findElement(By.cssSelector("#updateCart > div.-g-checkout-summary > div.cart-box.col-sm.clearfix > ul.cart-items.clearfix.order > li > div.qty-h.col-sm-3.col-xs-6 > div.qty-regulator.clearfix.-g-product-qty-regulator-86 > a.minus.number-down.updateCart.-g-no-url > i"));
         minusButton.click();
         System.out.println("Reduced quantity by 1.");
-
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -80,12 +76,5 @@ class E2E_QuantityAdjustTest {
         WebElement logoutButton = driver.findElement(By.cssSelector("#wrapper > div.account-h.container-h.container-bg > div > div.side-menu.col-lg-3.col-md-3.col-sm-12.col-xs-12 > div.row > ul:nth-child(5) > li > a"));
         logoutButton.click();
         System.out.println("Logged off successfully.");
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

@@ -1,40 +1,31 @@
 package tests;
 
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
 import pages.ProductPage;
-import utils.webUtils;
+import org.junit.jupiter.api.Test;
 
-class BasketTest {
-    private WebDriver driver;
+class BasketTest extends BaseTest {
     private ProductPage productPage;
 
     @BeforeEach
-    void setup() {
-        driver = webUtils.getWebDriver();
+    void testSetup() {
         productPage = new ProductPage(driver);
     }
 
     @Test
     void testAddToBasketAndCheckout() {
-        // Navigate to product page
+        // Step 1: Navigate to product page
         productPage.goTo("https://www.pmstore.ro/gaming");
 
-        // Add product to basket
+        // Step 2: Add product to basket
         productPage.addToBasket();
 
-        // Open the cart
+        // Step 3: Open basket
         productPage.openCart();
 
-        // Proceed to checkout
+        // Step 4: Proceed to checkout
         productPage.proceedToCheckout();
 
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        System.out.println("Test completed: Add to basket and checkout.");
     }
 }
