@@ -29,9 +29,11 @@ class E2E_AccountInfo_Test extends BaseTest {
         // Step 3: Log in with valid credentials
         WebElement emailField = driver.findElement(By.cssSelector("#_loginEmail"));
         emailField.sendKeys("John.Doee@example.com");
+        System.out.println("Email field is: " + emailField.getText());
 
         WebElement passwordField = driver.findElement(By.cssSelector("#_loginPassword"));
         passwordField.sendKeys("Test123!");
+        System.out.println("Password field is: " + passwordField.getText());
 
         WebElement submitLogin = driver.findElement(By.cssSelector("#doLogin"));
         submitLogin.click();
@@ -44,12 +46,13 @@ class E2E_AccountInfo_Test extends BaseTest {
 
         WebElement nameField = driver.findElement(By.cssSelector("#wrapper > div.account-h.container-h.container-bg > div > div.account-section.clearfix.col-sm-12.col-xs-12.col-lg-9.col-md-9 > form > div:nth-child(2) > input"));
         nameField.clear();
-        String newName = "New Name";
+        String newName = "Bratislava";
         nameField.sendKeys(newName);
 
         WebElement saveButton = driver.findElement(By.cssSelector("#doSave"));
         saveButton.click();
-        System.out.println("Saved account information changes.");
+        System.out.println("Saved account I changes.");
+        System.out.println("information edited sucessfully !!! :D ");
 
 
     }

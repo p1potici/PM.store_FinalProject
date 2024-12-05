@@ -7,7 +7,7 @@ import pages.LoginPage;
 import pages.ProductPage;
 import org.junit.jupiter.api.Test;
 
-class E2E_QuantityAdjustTest extends BaseTest {
+class E2E_QuantityTest extends BaseTest {
     private LoginPage loginPage;
     private ProductPage productPage;
 
