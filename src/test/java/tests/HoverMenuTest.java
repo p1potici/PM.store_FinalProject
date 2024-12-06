@@ -5,24 +5,28 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import pages.LoginPage;
 import pages.ProductPage;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Test for verifying hover functionality on the main menu.
  */
 class HoverMenuTest extends BaseTest {
     private ProductPage productPage;
+    private LoginPage loginPage;
 
     @BeforeEach
     void testSetup() {
         productPage = new ProductPage(driver);
+        loginPage = new LoginPage(driver);
     }
 
     @Test
     void testHoverMenu() {
         // Step 1: Navigate to the homepage
-        productPage.goTo("https://www.pmstore.ro/");
+        loginPage.goTo();
         System.out.println("Navigated to the homepage.");
 
         // Step 2: Locate the menu element to hover over
@@ -46,7 +50,7 @@ class HoverMenuTest extends BaseTest {
 
         // Step 6: Verify the dropdown menu collapses
         try {
-            Thread.sleep(1000); // Short wait for the menu to collapse
+            Thread.sleep(2000); // Short wait for the menu to collapse
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

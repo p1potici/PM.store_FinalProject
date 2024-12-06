@@ -3,19 +3,23 @@ package tests;
 import org.junit.jupiter.api.*;
 import pages.ProductPage;
 import org.junit.jupiter.api.Test;
+import pages.LoginPage;
+
 
 class BasketTest extends BaseTest {
     private ProductPage productPage;
+    private LoginPage loginPage;
 
     @BeforeEach
     void testSetup() {
         productPage = new ProductPage(driver);
+        loginPage = new LoginPage(driver);
     }
 
     @Test
     void testAddToBasketAndCheckout() {
         // Step 1: Navigate to product page
-        productPage.goTo("https://www.pmstore.ro/gaming");
+        loginPage.goTo();
 
         // Step 2: Add product to basket
         productPage.addToBasket();

@@ -2,58 +2,43 @@ package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import pages.AccountPage;
 import pages.LoginPage;
-
 
 class E2E_AccountInfo_Test extends BaseTest {
     private LoginPage loginPage;
+    private AccountPage accountPage;
 
     @BeforeEach
     void testSetup() {
         loginPage = new LoginPage(driver);
+        accountPage = new AccountPage(driver);
     }
 
     @Test
     void testEditAccountInformation() {
-        // Step 1: Navigate to the homepage
+        // Navigate to the homepage
         loginPage.goTo();
         System.out.println("Navigated to the homepage.");
 
-        // Step 2: Go to the login page
-        WebElement loginButton = driver.findElement(By.cssSelector("li.-g-user-icon > a > span"));
-        loginButton.click();
+        // Go to the login page
+        loginPage.clickLoginButton();
         System.out.println("Navigated to the login page.");
 
-        // Step 3: Log in with valid credentials
-        WebElement emailField = driver.findElement(By.cssSelector("#_loginEmail"));
-        emailField.sendKeys("John.Doee@example.com");
-        System.out.println("Email field is: " + emailField.getText());
-
-        WebElement passwordField = driver.findElement(By.cssSelector("#_loginPassword"));
-        passwordField.sendKeys("Test123!");
-        System.out.println("Password field is: " + passwordField.getText());
-
-        WebElement submitLogin = driver.findElement(By.cssSelector("#doLogin"));
-        submitLogin.click();
+        // Log in with valid credentials
+        loginPage.fillLoginForm("John.Doee@example.com", "Test123!");
+        loginPage.clickLogin_Button();
         System.out.println("Successfully logged in.");
 
-        // Step 5: Edit account information
-        WebElement editButton = driver.findElement(By.cssSelector("#wrapper > div.account-h.container-h.container-bg > div > div.side-menu.col-lg-3.col-md-3.col-sm-12.col-xs-12 > div.row > ul:nth-child(4) > li:nth-child(2) > a"));
-        editButton.click();
+        // Step 4: Edit account information
+        accountPage.clickEditButton();
         System.out.println("Opened account edit form.");
 
-        WebElement nameField = driver.findElement(By.cssSelector("#wrapper > div.account-h.container-h.container-bg > div > div.account-section.clearfix.col-sm-12.col-xs-12.col-lg-9.col-md-9 > form > div:nth-child(2) > input"));
-        nameField.clear();
-        String newName = "Bratislava";
-        nameField.sendKeys(newName);
+        accountPage.updateName("Bratislava");
+        System.out.println("Bratislava");
 
-        WebElement saveButton = driver.findElement(By.cssSelector("#doSave"));
-        saveButton.click();
-        System.out.println("Saved account I changes.");
-        System.out.println("information edited sucessfully !!! :D ");
-
-
+        accountPage.clickSaveButton();
+        System.out.println("Saved account information changes successfully.");
+        System.out.println("acc. edited sucessfully.");
     }
 }
